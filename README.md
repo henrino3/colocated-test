@@ -1,6 +1,10 @@
-# Colocated Testing & Close the Loop
+# CTRL — Close The Running Loop
+
+> **C**lose **T**he **R**unning **L**oop
 
 A practical guide to **Peter Steinberger's "Close the Loop"** methodology for autonomous AI agent coding — with a real experiment proving it works.
+
+![Peter explaining Close the Loop](peter-close-the-loop.gif)
 
 ## What is "Close the Loop"?
 
