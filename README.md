@@ -10,7 +10,7 @@ A practical guide to **Peter Steinberger's "Close the Loop"** methodology for au
 
 The idea is simple: **give your coding agent the ability to verify its own work.**
 
-Peter Steinberger (creator of OpenClaw/Claudebot, formerly PSPDFKit) ships code he doesn't read. He runs 3-8 AI coding agents in parallel and merged **600 commits in a single day**. The secret? Every agent writes tests, runs them, fixes failures, and only reports back when everything passes. No human in the loop for verification.
+Peter Steinberger (creator of OpenClaw/Clawdbot, founder of PSPDFKit) ships code he doesn't read. He runs 3-8 AI coding agents in parallel and merged **600 commits in a single day**. The secret? Every agent writes tests, runs them, fixes failures, and only reports back when everything passes. No human in the loop for verification.
 
 > *"Code works well with AI because it's verifiable. You can compile it, run it, test it. That's the loop. You have to close the loop."*
 > — Peter Steinberger
