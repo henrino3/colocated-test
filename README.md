@@ -24,10 +24,38 @@ Peter Steinberger (creator of OpenClaw/Claudebot, formerly PSPDFKit) ships code 
 
 ### 4-Layer Testing Pyramid
 
-1. **Unit tests** — Mock tests, logic validation (seconds)
-2. **E2E tests** — Gateway smoke, webhooks (minutes)
-3. **Live tests** — Real API calls, third-party integrations (slow, costs money)
-4. **Docker tests** — Containerized onboarding (slowest)
+Start at the bottom. Each layer adds realism — and cost.
+
+```
+         ┌──────────┐
+         │  Docker   │  Full app in container, cold-start
+         │  Tests    │  Slowest, most realistic
+         ├──────────┤
+         │   Live    │  Real API calls (Stripe, Anthropic, etc.)
+         │  Tests    │  Costs money, flaky (network/rate limits)
+         ├──────────┤
+         │   E2E     │  API routes, webhooks, request/response
+         │  Tests    │  Minutes, catches integration bugs
+         ├──────────┤
+         │   Unit    │  Pure logic, validation, security
+         │  Tests    │  Seconds, catches 80% of bugs
+         └──────────┘
+```
+
+| Layer | What it tests | Speed | Cost | When to use |
+|-------|--------------|-------|------|-------------|
+| **Unit** | Pure functions, logic, validation, security | <1s | Free | Every commit |
+| **E2E** | API routes, webhooks, auth flows, DB queries | 1-5 min | Free | Before push |
+| **Live** | Real third-party APIs (Stripe, OpenAI, etc.) | 5-30 min | $ (API calls) | Before release |
+| **Docker** | Full app cold-start in clean container | 5-10 min | Free | CI/CD pipeline |
+
+**Where to start:** Unit tests. They give you 80% of the value at <1% of the cost. Peter's OpenClaw has 1,376 test files and unit tests are the foundation.
+
+**When to add E2E:** When you have API routes that handle auth, data mutation, or external integrations. Tests like "does POST /api/tasks return 201?" catch a different class of bugs than unit tests.
+
+**When to add Live:** Only when you integrate with third-party APIs and need to verify they haven't changed their format/behavior. These are expensive and flaky — run them manually or before releases, not on every commit.
+
+**When to add Docker:** When you deploy to production and want to verify the entire app starts cleanly from scratch. Good for CI/CD pipelines.
 
 ### The Rules
 
